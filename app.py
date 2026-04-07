@@ -1,7 +1,7 @@
 """
 极简日历应用 - Flask后端
 运行: python app.py
-访问: http://localhost:5000
+访问: http://localhost:5008
 """
 
 import os
