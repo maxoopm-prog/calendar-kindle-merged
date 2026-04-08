@@ -26,7 +26,9 @@ cat > "$SCRIPT_PATH" << 'SCRIPT_EOF'
 #
 # Fixes applied:
 #   - BusyBox wget uses -T for timeout (not the `timeout` command)
-#   - sleep 10 after WiFi up / DHCP to ensure IP is ready before download
+#   - lipc commands for proper WiFi enable/disable on Kindle
+#   - route add default gw to fix missing gateway after WiFi up
+#   - sleep 10 after WiFi enable to ensure IP is ready
 #   - eips -c clears screen before display to eliminate ghost images
 
 SERVER="http://localhost:5008"
@@ -34,6 +36,7 @@ IMAGE_PATH="/tmp/kindle.png"
 LOG_FILE="/mnt/us/logs/kindle_update.log"
 LOCK_FILE="/tmp/kindle_update.lock"
 TIMEOUT=60
+GATEWAY="192.168.100.1"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
@@ -53,19 +56,13 @@ touch "$LOCK_FILE"
 
 log "=== Starting Kindle update ==="
 
-# Bring up WiFi if needed
-if ! ifconfig wlan0 | grep -q "UP"; then
-    log "WiFi down, bringing up..."
-    ifconfig wlan0 up
-    sleep 10
-fi
+# Enable WiFi via Kindle native lipc command
+log "Enabling WiFi..."
+lipc-set-prop com.lab126.cmd wirelessEnable 1
+sleep 10
 
-# Get IP if needed
-if ! ifconfig wlan0 | grep -q "inet addr"; then
-    log "Requesting DHCP lease..."
-    udhcpc -i wlan0 -q 2>/dev/null || true
-    sleep 10
-fi
+# Ensure default gateway exists
+route add default gw $GATEWAY 2>/dev/null || true
 
 # Download image using BusyBox wget (-T for timeout)
 log "Downloading image..."
@@ -87,10 +84,10 @@ else
     exit 1
 fi
 
-# Turn off WiFi to save battery
+# Disable WiFi via Kindle native lipc command
 log "Disabling WiFi..."
 killall udhcpc 2>/dev/null || true
-ifconfig wlan0 down
+lipc-set-prop com.lab126.cmd wirelessEnable 0
 log "=== Update completed ==="
 SCRIPT_EOF
 
