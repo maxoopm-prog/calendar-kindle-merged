@@ -29,7 +29,7 @@ cat > "$SCRIPT_PATH" << 'SCRIPT_EOF'
 #   - sleep 10 after WiFi up / DHCP to ensure IP is ready before download
 #   - eips -c clears screen before display to eliminate ghost images
 
-SERVER="http://101.32.190.149:5008"
+SERVER="http://localhost:5008"
 IMAGE_PATH="/tmp/kindle.png"
 LOG_FILE="/mnt/us/logs/kindle_update.log"
 LOCK_FILE="/tmp/kindle_update.lock"
