@@ -24,6 +24,11 @@
 - 截图目标 URL 可在登录后台配置，无需修改代码
 - Kindle 通过定时脚本拉取图片，实现每 30 分钟自动刷新日历
 
+<img width="758" height="1024" alt="kindle (3)" src="https://github.com/user-attachments/assets/22b20fe1-c351-4a2f-955a-70327d532826" />
+<img width="801" height="1040" alt="截屏2026-04-08 17 44 20" src="https://github.com/user-attachments/assets/26d5ba3c-ecc6-46ac-a8f2-beb6ded92d76" />
+<img width="804" height="1050" alt="截屏2026-04-08 17 44 31" src="https://github.com/user-attachments/assets/efc76c96-1f07-498c-a83c-725ac3431c0d" />
+
+
 ---
 
 ## 项目结构
@@ -57,7 +62,7 @@ python app.py
 ```
 
 访问 `http://localhost:5008`，默认演示账号：
-
+提示：登录按钮隐藏在右上角
 | 用户名 | 密码 |
 |--------|------|
 | demo | demo123 |
