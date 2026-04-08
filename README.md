@@ -73,7 +73,10 @@ Kindle 端访问 `http://<服务器IP>:5008/kindle.png` 即可获取当前日历
 ## Kindle 端配置
 
 > 需要已越狱的 Kindle（第六代已验证可用）
-> 修改setup_kindle.sh的服务器地址 SERVER="http://localhost:5008"
+> 修改setup_kindle.sh的服务器地址
+> ```SERVER="http://localhost:5008"```
+> 以及修改WIFI网关地址
+> ```GATEWAY="192.168.100.1"```
 
 将 `kindle/setup_kindle.sh` 传到 Kindle 后，执行一次即可完成全部配置：
 
